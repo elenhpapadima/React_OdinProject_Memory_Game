@@ -4,12 +4,18 @@ import { useRef } from "react";
 import "./index.css";
 import Card from "./Card";
 
+export interface Character {
+  id: number;
+  name: string;
+  img_url: string;
+}
+
 function App() {
-  const clickedCards = useRef<number[]>([]); //i say: it is an array of numbers
+  const clickedCards = useRef<number[]>([]); //it is an array of numbers
 
   //done Wait,if that is my data ,it loads once,then why on state?
   //because we will shuffle it on every click, we need to re render
-  const [characters, setCharacters] = useState([]);
+  const [characters, setCharacters] = useState<Character[]>([]);
   //to-do
   const [score, setScore] = useState(0);
   //to-do
@@ -25,10 +31,10 @@ function App() {
   }, []);
 
   //since function is inside component, it has access to state directly. i dont need to pass a parameter
-  function clickHandle(id: number) {
+  function clickHandle(id: number): void{
     if (clickedCards.current.includes(id)) {
       setScore(0);
-      //empy clicked cards
+      //empty clicked cards
       clickedCards.current = [];
     } else {
       //shuffle characters
@@ -43,7 +49,7 @@ function App() {
   }
 
   //shuffle
-  function shuffle(array: any[]) {
+  function shuffle(array: Character[]): Character[]{
     const shuffled = [...array];
     for (let i = shuffled.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));

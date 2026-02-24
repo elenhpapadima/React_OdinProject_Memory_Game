@@ -1,4 +1,14 @@
-export default function Card({ character, clickProp }) {
+import type { Character } from "./App";
+
+interface CardProps {
+  // Use our specific blueprint instead of the generic "object"
+  character: Character; 
+
+  // Describe the function: (input: type) => output
+  clickProp: (id: number) => void;}
+
+
+export default function Card({ character, clickProp }:CardProps) {
   return (
     <div
       onClick={() => clickProp(character.id)}
